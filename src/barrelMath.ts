@@ -1,6 +1,8 @@
 import type {
   GeneticsInputs,
   ACEInputs,
+  DailyFactorsInputs,
+  SocialInputs,
   AcuteEvent,
   BarrelParts,
   ComputeBarrelInputs,
@@ -93,7 +95,7 @@ export function instantBarrelParts(
   params: Params = DEFAULT_PARAMS,
   dailyVariation: number = 0
 ): BarrelParts {
-  const { genetics, ace, healing, daily, acuteEvents } = inputs;
+  const { genetics, ace, healing, daily, social, acuteEvents } = inputs;
   
   const gScore = computeGeneticsScore(genetics);
   const base = lerp(params.baseMin, params.baseMax, gScore);
@@ -117,6 +119,12 @@ export function instantBarrelParts(
   ];
   const dailyScore = computeGatedSum(dailyVals, params.wDaily, cap, amp);
   
+  const socialVals = [
+    toSigned(social.support),
+    toSigned(social.safety),
+    toSigned(invertLikert(social.barriers))
+  ];
+  const socialScore = computeGatedSum(socialVals, params.wSocial, cap, amp);
   
   const acuteScore = computeAcuteContribution(acuteEvents);
   

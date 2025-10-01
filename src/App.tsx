@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BarrelChart } from './components/BarrelChart';
 import { TimeTicker } from './components/TimeTicker';
 import { SuddenEventsPanel } from './components/SuddenEventsPanel';
@@ -9,7 +9,8 @@ import type {
   ACEInputs,
   DailyFactorsInputs,
   AcuteEvent,
-  SliceType
+  SliceType,
+  SmoothingState
 } from './types';
 
 const INITIAL_GENETICS: GeneticsInputs = {
@@ -45,7 +46,7 @@ export default function App() {
   const [acuteEvents, setAcuteEvents] = useState<AcuteEvent[]>([]);
   const [selectedSlice, setSelectedSlice] = useState<SliceType | null>(null);
   
-  const smoothingState = useRef<{ level: number }>({ level: 0.2 });
+  const smoothingState = useRef<SmoothingState>({ level: 0.2 });
   const [displayLevel, setDisplayLevel] = useState(0.2);
   
   const [sampleQueue, setSampleQueue] = useState<number[]>([0.2, 0.2, 0.2, 0.2]);
@@ -131,6 +132,9 @@ export default function App() {
     setAcuteEvents(prev => [...prev, event]);
   };
   
+  const handleRemoveEvent = (index: number) => {
+    setAcuteEvents(prev => prev.filter((_, i) => i !== index));
+  };
   
   const handleSelectSlice = (slice: SliceType | null) => {
     setSelectedSlice(slice);
@@ -186,9 +190,11 @@ export default function App() {
             gap: '20px',
             zIndex: 10
           }}>
-              <SuddenEventsPanel
-                onAddEvent={handleAddEvent}
-              />
+            <SuddenEventsPanel
+              events={acuteEvents}
+              onAddEvent={handleAddEvent}
+              onRemoveEvent={handleRemoveEvent}
+            />
             
             <ControlPanels
               selectedSlice={selectedSlice}

@@ -3,6 +3,7 @@ import type { AcuteEvent } from '../types';
 import { Card } from './Card';
 
 interface SuddenEventsPanelProps {
+  events: AcuteEvent[];
   onAddEvent: (event: AcuteEvent) => void;
 }
 
@@ -22,6 +23,7 @@ const PRESETS: EventPreset[] = [
 ];
 
 export const SuddenEventsPanel: React.FC<SuddenEventsPanelProps> = ({
+  events,
   onAddEvent
 }) => {
   const handleAddPreset = (preset: EventPreset) => {
