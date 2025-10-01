@@ -45,7 +45,7 @@ export default function App() {
   const [acuteEvents, setAcuteEvents] = useState<AcuteEvent[]>([]);
   const [selectedSlice, setSelectedSlice] = useState<SliceType | null>(null);
   
-  const smoothingState = useRef<SmoothingState>({ level: 0.2 });
+  const smoothingState = useRef<{ level: number }>({ level: 0.2 });
   const [displayLevel, setDisplayLevel] = useState(0.2);
   
   const [sampleQueue, setSampleQueue] = useState<number[]>([0.2, 0.2, 0.2, 0.2]);
@@ -131,9 +131,6 @@ export default function App() {
     setAcuteEvents(prev => [...prev, event]);
   };
   
-  const handleRemoveEvent = (index: number) => {
-    setAcuteEvents(prev => prev.filter((_, i) => i !== index));
-  };
   
   const handleSelectSlice = (slice: SliceType | null) => {
     setSelectedSlice(slice);
