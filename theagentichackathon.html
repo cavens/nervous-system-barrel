@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Agentic Hackathon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #D2D8D5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header {
+            font-size: 3em;
+            margin: 20px 0;
+            position: relative;
+            display: inline-block;
+            padding: 0 10px;  /* Add some padding to the sides of the text */
+        }
+
+        /* Create the stripe effect */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;  /* Extend slightly beyond the text */
+            right: -10px;  /* Extend slightly beyond the text */
+            height: 8px;  /* Adjust the height of the stripes */
+            background: linear-gradient(90deg, 
+                #8000FF 0%, #8000FF 49.9%, 
+                #00FFB2 50%, #00FFB2 100%
+            );
+            transform: translateY(-50%);  /* Center the stripes vertically */
+            z-index: -1;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .main-content h1 {
+            font-size: 3em;
+            position: relative;
+            margin-bottom: 20px;
+            display: inline-block;
+            z-index: 2;
+            padding: 0 10px;
+        }
+
+        /* Stripes behind the title */
+        .main-content .stripes {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110%; /* Make the stripes slightly wider than the text */
+            height: 30px;
+            z-index: 1;
+        }
+
+        .main-content .stripes .stripe-upper {
+            background-color: #8000FF;
+            position: absolute;
+            top: -10px; /* Position slightly above the text */
+            left: 20px;  /* 20px to the right */
+            width: 105%;
+            height: 15px;
+        }
+
+        .main-content .stripes .stripe-lower {
+            background-color: #00FFB2;
+            position: absolute;
+            top: 10px; /* Position slightly below the text */
+            left: -20px; /* 20px to the left */
+            width: 105%;
+            height: 15px;
+        }
+
+        .subheader {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        .learn-more {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.5em;
+            color: #333;
+            background-color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .learn-more:hover {
+            background-color: #bbb;
+        }
+
+        .footer {
+            padding: 20px;
+            background-color: #D2D8D5;
+            text-align: center;
+            font-size: 0.8em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .logos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .logos img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    Pacemaker hackathons, Stad Antwerpen, Fti, KDG, Ai Sherpa, and Microsoft present:
+</header>
+
+<div class="main-content">
+    <div>
+        <div class="stripes">
+            <div class="stripe-upper"></div>
+            <div class="stripe-lower"></div>
+        </div>
+        <h1>The Agentic Hackathon</h1>
+        <p class="subheader">24h up close with AI agents</p>
+        <a href="#" class="learn-more">Learn more</a>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>Previous participants include</p>
+    <div class="logos">
+        <img src="image 6.svg" alt="Logo 1">
+        <img src="image 7.svg" alt="Logo 2">
+        <img src="image 8.svg" alt="Logo 3">
+        <img src="image 9.svg" alt="Logo 4">
+        <img src="image 10.svg" alt="Logo 5">
+        <img src="image 11.svg" alt="Logo 6">
+        <img src="image 12.svg" alt="Logo 7">
+        <img src="image 13.svg" alt="Logo 8">
+    </div>
+</footer>
+
+</body>
+</html>
