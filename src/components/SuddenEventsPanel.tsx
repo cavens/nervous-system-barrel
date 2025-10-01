@@ -23,7 +23,6 @@ const PRESETS: EventPreset[] = [
 ];
 
 export const SuddenEventsPanel: React.FC<SuddenEventsPanelProps> = ({
-  events,
   onAddEvent
 }) => {
   const handleAddPreset = (preset: EventPreset) => {
