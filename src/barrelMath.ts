@@ -1,8 +1,6 @@
 import type {
   GeneticsInputs,
   ACEInputs,
-  DailyFactorsInputs,
-  SocialInputs,
   AcuteEvent,
   BarrelParts,
   ComputeBarrelInputs,
@@ -118,13 +116,6 @@ export function instantBarrelParts(
     toSigned(daily.jobSecurity)
   ];
   const dailyScore = computeGatedSum(dailyVals, params.wDaily, cap, amp);
-  
-  const socialVals = [
-    toSigned(social.support),
-    toSigned(social.safety),
-    toSigned(invertLikert(social.barriers))
-  ];
-  const socialScore = computeGatedSum(socialVals, params.wSocial, cap, amp);
   
   const acuteScore = computeAcuteContribution(acuteEvents);
   

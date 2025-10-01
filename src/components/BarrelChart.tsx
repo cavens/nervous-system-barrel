@@ -60,7 +60,8 @@ export const BarrelChart: React.FC<BarrelChartProps> = ({
     trauma: totalStress > 0 ? (parts.trauma / totalStress) * filledHeight : 0,
     social: 0, // Social context removed
     daily: totalStress > 0 ? (parts.daily / totalStress) * filledHeight : 0,
-    acute: totalStress > 0 ? (parts.acute / totalStress) * filledHeight : 0
+    acute: totalStress > 0 ? (parts.acute / totalStress) * filledHeight : 0,
+    headspace: (1 - fillFrac) * barHeight
   };
   
   const headspaceHeight = (1 - fillFrac) * barHeight;
