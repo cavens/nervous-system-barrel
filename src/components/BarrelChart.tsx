@@ -39,7 +39,6 @@ export const BarrelChart: React.FC<BarrelChartProps> = ({
   const barX = (totalWidth - barWidth) / 2 - 100;
   
   // Minimum heights for base layers (in pixels)
-  const MIN_HEIGHT = 30;
   
   // Calculate percentages (each component as % of total barrel)
   const totalStress = parts.genetics + parts.trauma + parts.daily + parts.acute;
