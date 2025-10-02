@@ -258,15 +258,24 @@ export default function App() {
   }, []);
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: '#D2D8D5',
-        fontFamily: 'Athiti, sans-serif',
-        padding: '40px 20px',
-        overflowX: 'hidden'
-      }}
-    >
+    <>
+      {/* Mobile message */}
+      <div className="mobile-message">
+        <h1>Need more (head)space to display the animation.</h1>
+        <p>Please use your laptop.</p>
+      </div>
+
+      {/* Desktop content */}
+      <div
+        className="desktop-only"
+        style={{
+          minHeight: '100vh',
+          background: '#D2D8D5',
+          fontFamily: 'Athiti, sans-serif',
+          padding: '40px 20px',
+          overflowX: 'hidden'
+        }}
+      >
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
         <h1 style={{ 
           textAlign: 'center', 
@@ -426,13 +435,14 @@ export default function App() {
         )}
       </div>
       
-      {/* Notification overlay */}
-      {notification && (
-        <Notification 
-          message={notification} 
-          onComplete={hideNotification} 
-        />
-      )}
-    </div>
+        {/* Notification overlay */}
+        {notification && (
+          <Notification 
+            message={notification} 
+            onComplete={hideNotification} 
+          />
+        )}
+      </div>
+    </>
   );
 }

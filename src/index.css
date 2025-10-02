@@ -17,3 +17,51 @@ button {
 input {
   font-family: 'Athiti', sans-serif;
 }
+
+/* Hide everything on small screens */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .mobile-message {
+    display: flex !important;
+  }
+}
+
+/* Hide mobile message on desktop */
+@media (min-width: 769px) {
+  .mobile-message {
+    display: none !important;
+  }
+}
+
+.mobile-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #D2D8D5;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.mobile-message h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.mobile-message p {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.5;
+}
