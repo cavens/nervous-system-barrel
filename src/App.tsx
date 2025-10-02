@@ -79,7 +79,7 @@ export default function App() {
       showNotification(newGenetics.familyStressIllness ? "Stress-related illness in family" : "No stress-related illness in family");
     } else if (oldGenetics.personalSensitivity !== newGenetics.personalSensitivity) {
       const diff = newGenetics.personalSensitivity - oldGenetics.personalSensitivity;
-      showNotification(`Personal sensitivity ${diff > 0 ? '+' : ''}${diff}`);
+      showNotification(`Personal sensitivity ${diff > 0 ? '+' : '-'}`);
     }
   }, [genetics, showNotification]);
 
@@ -105,7 +105,7 @@ export default function App() {
     
     const diff = Math.round((newHealing - oldHealing) * 100);
     if (diff !== 0) {
-      showNotification(`Healing progress ${diff > 0 ? '+' : ''}${diff}%`);
+      showNotification(`Healing progress ${diff > 0 ? '+' : '-'}`);
     }
   }, [healing, showNotification]);
 
@@ -131,7 +131,7 @@ export default function App() {
     for (const field of fields) {
       if (oldDaily[field.key as keyof DailyFactorsInputs] !== newDaily[field.key as keyof DailyFactorsInputs]) {
         const diff = (newDaily[field.key as keyof DailyFactorsInputs] as number) - (oldDaily[field.key as keyof DailyFactorsInputs] as number);
-        showNotification(`${field.label} ${diff > 0 ? '+' : ''}${diff}`);
+        showNotification(`${field.label} ${diff > 0 ? '+' : '-'}`);
         break; // Only show notification for the first changed field
       }
     }
@@ -228,10 +228,16 @@ export default function App() {
   const overstressed = avgLevel >= 0.90 && avgLevel < 1.0 && !meltdown;
   
   const handleReset = () => {
-    setMeltdown(false);
-    setSampleQueue([0.2, 0.2, 0.2, 0.2]);
+    setGenetics(INITIAL_GENETICS);
+    setACE(INITIAL_ACE);
+    setHealing(0);
+    setDaily(INITIAL_DAILY);
+    setAcuteEvents([]);
+    setSelectedSlice(null);
     smoothingState.current.level = 0.2;
     setDisplayLevel(0.2);
+    setSampleQueue([0.2, 0.2, 0.2, 0.2]);
+    setMeltdown(false);
     setDailyVariation(0);
   };
   
