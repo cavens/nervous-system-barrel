@@ -1,4 +1,4 @@
-# Nervous System Barrel (v13.2)
+# Nervous System Barrel (v13.3)
 
 Interactive visualization modeling personal stress load as a stacked vertical column.
 
