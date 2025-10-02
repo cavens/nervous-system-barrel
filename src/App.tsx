@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { BarrelChart } from './components/BarrelChart';
 import { TimeTicker } from './components/TimeTicker';
 import { SuddenEventsPanel } from './components/SuddenEventsPanel';
-import { ControlPanels, DailyPanel, TraumaPanel, GeneticsPanel } from './components/ControlPanels';
+import { DailyPanel, TraumaPanel, GeneticsPanel } from './components/ControlPanels';
 import { Notification } from './components/Notification';
 import { instantBarrelParts, updateSmoothedLevel, DEFAULT_PARAMS } from './barrelMath';
 import type {

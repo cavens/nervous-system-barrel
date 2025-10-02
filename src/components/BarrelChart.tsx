@@ -39,7 +39,6 @@ export const BarrelChart: React.FC<BarrelChartProps> = ({
   const barX = (totalWidth - barWidth) / 2 - 100;
   
   // Minimum heights for base layers (in pixels)
-  const MIN_HEIGHT = 30;
   
   // Calculate percentages (each component as % of total barrel)
   const totalStress = parts.genetics + parts.trauma + parts.daily + parts.acute;
@@ -70,7 +69,7 @@ export const BarrelChart: React.FC<BarrelChartProps> = ({
   const slices = SLICE_CONFIGS
     .filter(config => config.type !== 'acute' || parts.acute > 0) // Hide acute if no events
     .map(config => {
-      const height = sliceHeights[config.type];
+      const height = config.type === 'headspace' ? headspaceHeight : sliceHeights[config.type as keyof typeof sliceHeights];
       currentY -= height;
       return {
         ...config,

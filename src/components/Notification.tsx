@@ -7,12 +7,10 @@ interface NotificationProps {
 }
 
 export const Notification: React.FC<NotificationProps> = ({ message, onComplete }) => {
-  const [isVisible, setIsVisible] = useState(true);
   const [shouldFade, setShouldFade] = useState(false);
 
   useEffect(() => {
     // Reset state when message changes
-    setIsVisible(true);
     setShouldFade(false);
 
     // Start fading out after 1 second

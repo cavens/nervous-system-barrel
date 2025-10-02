@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from './Card';
 import { Stepper } from './Stepper';
-import type { GeneticsInputs, ACEInputs, DailyFactorsInputs, SliceType, OneToFive } from '../types';
+import type { GeneticsInputs, ACEInputs, DailyFactorsInputs, OneToFive } from '../types';
 
 interface GeneticsPanelProps {
   genetics: GeneticsInputs;
@@ -46,13 +46,6 @@ interface TraumaPanelProps {
 }
 
 export const TraumaPanel: React.FC<TraumaPanelProps> = ({ ace, healing, onUpdateACE, onUpdateHealing }) => {
-  const aceScore = [
-    ace.emotionalAbuseNeglect,
-    ace.physicalAbuseNeglect,
-    ace.sexualAbuse,
-    ace.householdDysfunction
-  ].filter(Boolean).length;
-
   return (
     <Card title="Trauma & Healing" style={{ width: '320px' }}>
       <div style={{ marginBottom: '16px' }}>
@@ -204,7 +197,6 @@ export const DailyPanel: React.FC<DailyPanelProps> = ({ daily, onUpdate }) => {
 };
 
 interface ControlPanelsProps {
-  selectedSlice: SliceType | null;
   genetics: GeneticsInputs;
   ace: ACEInputs;
   healing: number;
@@ -216,7 +208,6 @@ interface ControlPanelsProps {
 }
 
 export const ControlPanels: React.FC<ControlPanelsProps> = ({
-  selectedSlice,
   genetics,
   ace,
   healing,
