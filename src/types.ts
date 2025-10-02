@@ -20,6 +20,9 @@ export interface DailyFactorsInputs {
   medicalStatus: OneToFive;
   workSatisfaction: OneToFive;
   purposeMeaning: OneToFive;
+  spiritualPractice: OneToFive;
+  significantOther: OneToFive;
+  otherRelationships: OneToFive;
   financialStress: OneToFive;
   jobSecurity: OneToFive;
 }

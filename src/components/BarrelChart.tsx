@@ -39,6 +39,7 @@ export const BarrelChart: React.FC<BarrelChartProps> = ({
   const barX = (totalWidth - barWidth) / 2 - 100;
   
   // Minimum heights for base layers (in pixels)
+  const MIN_HEIGHT = 30;
   
   // Calculate percentages (each component as % of total barrel)
   const totalStress = parts.genetics + parts.trauma + parts.daily + parts.acute;
@@ -59,8 +60,7 @@ export const BarrelChart: React.FC<BarrelChartProps> = ({
     trauma: totalStress > 0 ? (parts.trauma / totalStress) * filledHeight : 0,
     social: 0, // Social context removed
     daily: totalStress > 0 ? (parts.daily / totalStress) * filledHeight : 0,
-    acute: totalStress > 0 ? (parts.acute / totalStress) * filledHeight : 0,
-    headspace: (1 - fillFrac) * barHeight
+    acute: totalStress > 0 ? (parts.acute / totalStress) * filledHeight : 0
   };
   
   const headspaceHeight = (1 - fillFrac) * barHeight;
@@ -115,38 +115,46 @@ export const BarrelChart: React.FC<BarrelChartProps> = ({
 
   return (
     <div style={{ position: 'relative', width: totalWidth, height: barHeight + 100 }}>
-      {/* Center indicators - positioned independently of barrel shake */}
-      <div style={{ position: 'absolute', left: barX + barWidth/2 - 20, top: barHeight * 0.5, fontSize: '12px', color: '#000', textAlign: 'center', width: '40px', zIndex: 10 }}>
-        <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
-          Great
-        </span>
-      </div>
-      <div style={{ position: 'absolute', left: barX + barWidth/2 - 15, top: barHeight * 0.4, fontSize: '12px', color: '#000', textAlign: 'center', width: '30px', zIndex: 10 }}>
-        <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
-          Good
-        </span>
-      </div>
-      <div style={{ position: 'absolute', left: barX + barWidth/2 - 25, top: barHeight * 0.25, fontSize: '12px', color: '#000', textAlign: 'center', width: '50px', zIndex: 10 }}>
-        <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
-          Stressed
-        </span>
-      </div>
-      <div style={{ position: 'absolute', left: barX + barWidth/2 - 40, top: barHeight * 0.1, fontSize: '12px', color: '#000', textAlign: 'center', width: '80px', zIndex: 10 }}>
-        <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
-          Overstressed
-        </span>
-      </div>
-      <div style={{ position: 'absolute', left: barX + barWidth/2 - 30, top: 0, fontSize: '12px', color: '#000', textAlign: 'center', width: '60px', zIndex: 10 }}>
-        <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
-          Melt-down
-        </span>
-      </div>
+      {/* Center indicators - positioned independently of barrel shake, hidden during meltdown */}
+      {!meltdown && (
+        <>
+          <div style={{ position: 'absolute', left: barX + barWidth/2 - 20, top: barHeight * 0.6, fontSize: '12px', color: '#000', textAlign: 'center', width: '40px', zIndex: 10 }}>
+            <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
+              Great
+            </span>
+          </div>
+          <div style={{ position: 'absolute', left: barX + barWidth/2 - 15, top: barHeight * 0.425, fontSize: '12px', color: '#000', textAlign: 'center', width: '30px', zIndex: 10 }}>
+            <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
+              Good
+            </span>
+          </div>
+          <div style={{ position: 'absolute', left: barX + barWidth/2 - 25, top: barHeight * 0.25, fontSize: '12px', color: '#000', textAlign: 'center', width: '50px', zIndex: 10 }}>
+            <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
+              Stressed
+            </span>
+          </div>
+          <div style={{ position: 'absolute', left: barX + barWidth/2 - 40, top: barHeight * 0.1, fontSize: '12px', color: '#000', textAlign: 'center', width: '80px', zIndex: 10 }}>
+            <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
+              Overstressed
+            </span>
+          </div>
+          <div style={{ position: 'absolute', left: barX + barWidth/2 - 30, top: 0, fontSize: '12px', color: '#000', textAlign: 'center', width: '60px', zIndex: 10 }}>
+            <span style={{ background: '#fff', padding: '0px 2px', borderRadius: '1px', lineHeight: '1', display: 'inline-block' }}>
+              Melt-down
+            </span>
+          </div>
+        </>
+      )}
       
-      {/* White horizontal lines behind labels - aligned with top of highlights */}
-      <div style={{ position: 'absolute', left: barX, top: barHeight * 0.5 + 3, width: barWidth, height: '1px', background: '#fff', zIndex: 5 }}></div>
-      <div style={{ position: 'absolute', left: barX, top: barHeight * 0.4 + 3, width: barWidth, height: '1px', background: '#fff', zIndex: 5 }}></div>
-      <div style={{ position: 'absolute', left: barX, top: barHeight * 0.25 + 3, width: barWidth, height: '1px', background: '#fff', zIndex: 5 }}></div>
-      <div style={{ position: 'absolute', left: barX, top: barHeight * 0.1 + 3, width: barWidth, height: '1px', background: '#fff', zIndex: 5 }}></div>
+      {/* White horizontal lines behind labels - aligned with top of highlights, hidden during meltdown */}
+      {!meltdown && (
+        <>
+          <div style={{ position: 'absolute', left: barX, top: barHeight * 0.6 + 3, width: barWidth, height: '1px', background: '#fff', zIndex: 5 }}></div>
+          <div style={{ position: 'absolute', left: barX, top: barHeight * 0.425 + 3, width: barWidth, height: '1px', background: '#fff', zIndex: 5 }}></div>
+          <div style={{ position: 'absolute', left: barX, top: barHeight * 0.25 + 3, width: barWidth, height: '1px', background: '#fff', zIndex: 5 }}></div>
+          <div style={{ position: 'absolute', left: barX, top: barHeight * 0.1 + 3, width: barWidth, height: '1px', background: '#fff', zIndex: 5 }}></div>
+        </>
+      )}
       
       <motion.svg
         width={totalWidth}
@@ -238,46 +246,7 @@ export const BarrelChart: React.FC<BarrelChartProps> = ({
         </AnimatePresence>
       </motion.svg>
       
-      <div style={{ 
-        position: 'absolute', 
-        left: barX, 
-        top: barHeight + 20,
-        width: barWidth,
-        textAlign: 'center',
-        fontSize: '16px',
-        fontWeight: '600'
-      }}>
-        {getStatusLabel(fillFrac)}
-      </div>
-      
-      {meltdown && (
-        <div style={{
-          position: 'absolute',
-          left: barX,
-          top: barHeight / 2 - 40,
-          width: barWidth,
-          textAlign: 'center',
-          fontSize: '32px',
-          fontWeight: '700',
-          color: '#FF0000'
-        }}>
-          MELTDOWN
-        </div>
-      )}
     </div>
   );
 };
-function getStatusLabel(level: number): React.ReactNode {
-  if (level >= 1.0) {
-    return <span style={{ color: '#FF0000' }}>Fuse-Box Meltdown</span>;
-  } else if (level >= 0.90) {
-    return <span style={{ color: '#FF6600' }}>Overstressed</span>;
-  } else if (level >= 0.70) {
-    return <span style={{ color: '#FF9900' }}>Mental Health Complaints</span>;
-  } else if (level >= 0.50) {
-    return <span style={{ color: '#FFCC00' }}>Stressed</span>;
-  } else {
-    return <span style={{ color: '#00AA00' }}>Feeling OK</span>;
-  }
-}
 

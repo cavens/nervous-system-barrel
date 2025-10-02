@@ -10,7 +10,7 @@ interface GeneticsPanelProps {
 
 export const GeneticsPanel: React.FC<GeneticsPanelProps> = ({ genetics, onUpdate }) => {
   return (
-    <Card title="Genetics Controls" style={{ width: '320px' }}>
+    <Card title="Genetics" style={{ width: '320px' }}>
       <Stepper
         label="Family anxiety/depression"
         value={genetics.familyAnxiety ? 1 : 0}
@@ -54,11 +54,8 @@ export const TraumaPanel: React.FC<TraumaPanelProps> = ({ ace, healing, onUpdate
   ].filter(Boolean).length;
 
   return (
-    <Card title="Trauma & Healing Controls" style={{ width: '320px' }}>
+    <Card title="Trauma & Healing" style={{ width: '320px' }}>
       <div style={{ marginBottom: '16px' }}>
-        <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>
-          ACE Factors (current: {aceScore}/4):
-        </div>
         <Stepper
           label="Emotional abuse/neglect"
           value={ace.emotionalAbuseNeglect ? 1 : 0}
@@ -113,7 +110,7 @@ interface DailyPanelProps {
 
 export const DailyPanel: React.FC<DailyPanelProps> = ({ daily, onUpdate }) => {
   return (
-    <Card title="Day to Day Controls" style={{ width: '320px' }}>
+    <Card title="Day to Day" style={{ width: '320px' }}>
       <div style={{ marginBottom: '12px' }}>
         <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>Physical:</div>
         <Stepper
@@ -162,6 +159,27 @@ export const DailyPanel: React.FC<DailyPanelProps> = ({ daily, onUpdate }) => {
           max={5}
           onChange={(v) => onUpdate({ ...daily, purposeMeaning: v as OneToFive })}
         />
+        <Stepper
+          label="Spiritual practice (1-5)"
+          value={daily.spiritualPractice}
+          min={1}
+          max={5}
+          onChange={(v) => onUpdate({ ...daily, spiritualPractice: v as OneToFive })}
+        />
+        <Stepper
+          label="Significant other (1-5)"
+          value={daily.significantOther}
+          min={1}
+          max={5}
+          onChange={(v) => onUpdate({ ...daily, significantOther: v as OneToFive })}
+        />
+        <Stepper
+          label="Other relationships (1-5)"
+          value={daily.otherRelationships}
+          min={1}
+          max={5}
+          onChange={(v) => onUpdate({ ...daily, otherRelationships: v as OneToFive })}
+        />
       </div>
       
       <div>
@@ -208,21 +226,11 @@ export const ControlPanels: React.FC<ControlPanelsProps> = ({
   onUpdateHealing,
   onUpdateDaily
 }) => {
-  if (!selectedSlice || selectedSlice === 'headspace' || selectedSlice === 'acute') {
-    return null;
-  }
-
   return (
     <>
-      {selectedSlice === 'genetics' && (
-        <GeneticsPanel genetics={genetics} onUpdate={onUpdateGenetics} />
-      )}
-      {selectedSlice === 'trauma' && (
-        <TraumaPanel ace={ace} healing={healing} onUpdateACE={onUpdateACE} onUpdateHealing={onUpdateHealing} />
-      )}
-      {selectedSlice === 'daily' && (
-        <DailyPanel daily={daily} onUpdate={onUpdateDaily} />
-      )}
+      <GeneticsPanel genetics={genetics} onUpdate={onUpdateGenetics} />
+      <TraumaPanel ace={ace} healing={healing} onUpdateACE={onUpdateACE} onUpdateHealing={onUpdateHealing} />
+      <DailyPanel daily={daily} onUpdate={onUpdateDaily} />
     </>
   );
 };

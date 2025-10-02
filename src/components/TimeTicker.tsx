@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface TimeTickerProps {
   onTick: () => void;
@@ -9,11 +8,11 @@ interface TimeTickerProps {
 
 export const TimeTicker: React.FC<TimeTickerProps> = ({ 
   onTick, 
-  width = 300, 
-  height = 8 
+  width = 200, 
+  height = 1 
 }) => {
-  const [phase, setPhase] = useState<'grow' | 'wipe'>('grow');
   const onTickRef = useRef(onTick);
+  const [animationProgress, setAnimationProgress] = useState(0);
 
   // Always use the latest onTick callback
   useEffect(() => {
@@ -22,13 +21,35 @@ export const TimeTicker: React.FC<TimeTickerProps> = ({
 
   useEffect(() => {
     // Trigger tick every 1 second
-    const interval = setInterval(() => {
+    const tickInterval = setInterval(() => {
       onTickRef.current();
-      setPhase(current => current === 'grow' ? 'wipe' : 'grow');
     }, 1000);
 
-    return () => clearInterval(interval);
+    // Animation interval - 60fps for smooth animation
+    const animationInterval = setInterval(() => {
+      setAnimationProgress(prev => {
+        const newProgress = prev + (200 / 60); // 1 second = 60 frames at 60fps, so 200% in 1 second
+        if (newProgress >= 200) return 0; // Reset after 1 second
+        return newProgress;
+      });
+    }, 1000 / 60); // 60fps
+
+    return () => {
+      clearInterval(tickInterval);
+      clearInterval(animationInterval);
+    };
   }, []);
+
+  // Calculate width and margin-left based on animation progress
+  const lineStyle = animationProgress <= 100 
+    ? {
+        width: `${animationProgress}%`,
+        marginLeft: '0%'
+      }
+    : {
+        width: `${200 - animationProgress}%`,
+        marginLeft: `${animationProgress - 100}%`
+      };
 
   return (
     <div 
@@ -37,38 +58,21 @@ export const TimeTicker: React.FC<TimeTickerProps> = ({
         width, 
         height,
         background: '#D2D8D5',
+        border: 'none',
         overflow: 'hidden'
       }}
       aria-label="time ticker"
     >
-      {phase === 'grow' && (
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: '100%' }}
-          transition={{ duration: 1, ease: 'linear' }}
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            height: '100%',
-            background: '#000'
-          }}
-        />
-      )}
-      {phase === 'wipe' && (
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: '100%' }}
-          transition={{ duration: 1, ease: 'linear' }}
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            height: '100%',
-            background: '#D2D8D5'
-          }}
-        />
-      )}
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          height: '100%',
+          background: '#000',
+          ...lineStyle
+        }}
+      />
     </div>
   );
 };

@@ -10,7 +10,7 @@ import type {
 
 export const DEFAULT_PARAMS: Params = {
   wTrauma: 0.25,
-  wDaily: 0.35,
+  wDaily: 0.50,
   wSocial: 0.20,
   baseMin: 0.10,
   baseMax: 0.30,
@@ -112,10 +112,15 @@ export function instantBarrelParts(
     toSigned(daily.medicalStatus),
     toSigned(daily.workSatisfaction),
     toSigned(daily.purposeMeaning),
+    toSigned(daily.spiritualPractice),
+    toSigned(daily.significantOther),
+    toSigned(daily.otherRelationships),
     toSigned(invertLikert(daily.financialStress)),
     toSigned(daily.jobSecurity)
   ];
   const dailyScore = computeGatedSum(dailyVals, params.wDaily, cap, amp);
+  
+  
   
   const acuteScore = computeAcuteContribution(acuteEvents);
   
