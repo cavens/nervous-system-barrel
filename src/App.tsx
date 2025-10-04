@@ -345,7 +345,7 @@ export default function App() {
                       marginTop: '-6px',
                       lineHeight: '1.4'
                     }}>
-                      This model is based on nothing but common sense and chatGPT.
+                      This model is based on nothing but common sense and chatGPT. Feel free to adapt at will <a href="https://github.com/cavens/nervous-system-barrel/tree/main" target="_blank" rel="noopener noreferrer">@github</a>
                     </div>
           </div>
         )}
